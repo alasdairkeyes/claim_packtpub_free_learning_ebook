@@ -14,7 +14,7 @@
     use warnings;
     use LWP::UserAgent;
     use HTTP::Cookies;
-    my $VERSION = '0.1';
+    my $VERSION = '0.2';
 
 
 ## Check we have details required
