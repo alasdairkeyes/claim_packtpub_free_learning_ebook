@@ -49,6 +49,8 @@ Try it... go on, why not?
 
 
 ## Changelog
+- 2016-12-18 :: 0.02    :: Display message when Packt have temporarily
+                           stopped running the free ebook deal
 - 2016-06-12 :: 0.01    :: First release
 
 
