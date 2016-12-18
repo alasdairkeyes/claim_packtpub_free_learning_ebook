@@ -43,6 +43,19 @@
         unless $free_learning_response->is_success;
 
 
+## Packt don't always run the deal, detect when this is the case... inform and quit
+    my @non_running_strings = (
+        'Access over 4,000 eBooks &amp; video courses. Free for 10 days'
+	);
+    foreach my $non_running_string (@non_running_strings) {
+        if (index($free_learning_content, $non_running_string) >= 0) {
+            print "It appears that Packt aren't running their free books at the moment.\n";
+			print "Check $free_learning_uri for information on when it will return";
+            exit;
+        }
+    }
+
+
 ## Get login form 'form_build_id'
     my @login_form_build_ids = ( $free_learning_content =~ m{name="form_build_id"\s+id="(form-[a-z0-9]{32})"}gms );
     my $login_form_build_id = shift (@login_form_build_ids)
