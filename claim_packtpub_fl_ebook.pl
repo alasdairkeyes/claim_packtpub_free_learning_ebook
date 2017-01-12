@@ -15,7 +15,7 @@
     use LWP::UserAgent;
     use HTTP::Cookies;
     use Encode;
-    my $VERSION = '0.2';
+    my $VERSION = '0.3';
 
 
 ## Check we have details required
