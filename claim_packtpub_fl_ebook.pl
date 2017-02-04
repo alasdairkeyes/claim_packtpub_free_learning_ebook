@@ -102,4 +102,4 @@
 
 
 ## Alert that the new book has been obtained
-    print "Purchased Today's free book " . encode('utf-8', $title) . "'\nGet it at $my_ebooks_uri\n";
+    print "Purchased Today's free book '" . encode('utf-8', $title) . "'\nGet it at $my_ebooks_uri\n";
