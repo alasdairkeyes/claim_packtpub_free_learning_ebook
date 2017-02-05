@@ -49,6 +49,7 @@ Try it... go on, why not?
 
 
 ## Changelog
+- 2017-02-05 :: 0.04    :: Fix missing apostrophe
 - 2017-01-12 :: 0.03    :: Print UTF-8 characters correctly
 - 2016-12-18 :: 0.02    :: Display message when Packt have temporarily
                            stopped running the free ebook deal
