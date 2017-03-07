@@ -49,6 +49,8 @@ Try it... go on, why not?
 
 
 ## Changelog
+- 2017-03-07 :: 0.5     :: Fix redirect checks after purchase
+                           Add in debug
 - 2017-02-05 :: 0.4     :: Fix missing apostrophe
 - 2017-01-12 :: 0.3     :: Print UTF-8 characters correctly
 - 2016-12-18 :: 0.2     :: Display message when Packt have temporarily

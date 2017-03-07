@@ -16,7 +16,7 @@
     use HTTP::Cookies;
     use Data::Dumper;
     use Encode;
-    my $VERSION = '0.4';
+    my $VERSION = '0.5';
 
 
 ## Check we have details required
