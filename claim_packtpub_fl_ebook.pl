@@ -14,6 +14,7 @@
     use warnings;
     use LWP::UserAgent;
     use HTTP::Cookies;
+    use Data::Dumper;
     use Encode;
     my $VERSION = '0.4';
 
@@ -21,6 +22,18 @@
 ## Check we have details required
     $packtpub_email     || die "Please add email to script $0";
     $packtpub_password  || die "Please add password to script $0";
+
+
+## Add in Debug
+    use constant DEBUG => (grep { $_ eq '-v' } @ARGV)
+        ? 1
+        : 0;
+
+    sub debug {
+        return unless DEBUG;
+        print "DEBUG: " . join(' ', @_) . "\n";
+        return 1;
+    }
 
 
 ## Define Domain/URLs required
@@ -36,12 +49,16 @@
 
     $ua->cookie_jar( HTTP::Cookies->new() );
 
+    debug("Created LWP::UserAgent object");
+
 
 ## Get Free learning page
     my $free_learning_response = $ua->get($free_learning_uri);
     my $free_learning_content = $free_learning_response->decoded_content;
     die "Failed to get '$free_learning_uri': " . $free_learning_response->status_line
         unless $free_learning_response->is_success;
+
+    debug("Fetched '$free_learning_uri'");
 
 
 ## Packt don't always run the deal, detect when this is the case... inform and quit
@@ -62,6 +79,8 @@
     my $login_form_build_id = shift (@login_form_build_ids)
             || die "Failed to get form_build_id for login";
 
+    debug("Got login_form_build_id '$login_form_build_id'");
+
 
 ## Get Book title data
     my @h2 = ( $free_learning_content =~ m{<h2>.*?</h2>}gms );
@@ -77,6 +96,8 @@
         || die "Failed to get purchase link";
     $p_link = join('', $packt_pub_domain, $p_link);
 
+    debug("Got title of '$title'");
+
 
 ## Login to Packt pub, 200 response on failure, 302 on success
     my $login_response = $ua->post($free_learning_uri, {
@@ -87,8 +108,13 @@
         form_id         => 'packt_user_login_form',
     });
 
-    die "Failed to get 302 response from login"
-        unless ($login_response->code eq "302");
+    debug("Login Response Dump:", Dumper($login_response));
+
+    my $required_login_status = 302;
+    die "Failed to get $required_login_status response from login"
+        unless ($login_response->code eq $required_login_status);
+
+    debug("Logged in and obtained $required_login_status response");
 
 
 ## Call the URI to order the free book
@@ -99,6 +125,8 @@
     die "Failed to get 302 redirect to ebooks page after purchase"
         unless ($get_book_response->previous->code eq "302" &&
                 $get_book_response->previous->headers->header('location') eq $my_ebooks_uri);
+
+    debug("Get Book Response Dump", Dumper($get_book_response));
 
 
 ## Alert that the new book has been obtained
