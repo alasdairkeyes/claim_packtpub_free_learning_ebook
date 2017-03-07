@@ -122,9 +122,14 @@
 
 
 ## 302 redirect to $my_ebooks_uri on success, else die
-    die "Failed to get 302 redirect to ebooks page after purchase"
-        unless ($get_book_response->previous->code eq "302" &&
-                $get_book_response->previous->headers->header('location') eq $my_ebooks_uri);
+    my $required_purchase_status = 302;
+    my @known_redirect_urls = (
+        $packt_pub_domain,
+        $my_ebooks_uri
+    );
+    die "Failed to get $required_purchase_status redirect to a known URL after purchase"
+        unless ($get_book_response->previous->code eq $required_purchase_status &&
+            grep { $get_book_response->previous->headers->header('location') eq $_ } @known_redirect_urls);
 
     debug("Get Book Response Dump", Dumper($get_book_response));
 
