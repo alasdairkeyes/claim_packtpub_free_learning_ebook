@@ -2,6 +2,17 @@
 Script to login to your Packtpub account and claim the free learning ebook
 
 
+## NOTE: Not under active development
+
+As of 2017-05-26, PacktPub have placed a reCaptcha on the free E-Learning
+page making this script pretty much useless. There are projects to try 
+and get around this but I feel that it's not worth trying to employ them
+for this project.
+
+Unfortunately, unless the reCaptcha is removed, this project is now dead.
+
+Feel free to fork and adapt if you want to carry on using it.
+
 
 ## Installation
 There's no installation, just a single script.
